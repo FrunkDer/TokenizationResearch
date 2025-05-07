@@ -17,13 +17,10 @@ def char_trigrams_tokenize(examples):
     """
     tokenized_texts = []
     for text in examples["text"]:
-        # Remove whitespace
-        text_no_whitespace = "".join(text.split())
-        
         # Build trigrams in a sliding window
         trigrams = []
-        for i in range(len(text_no_whitespace) - 2):
-            trigrams.append(text_no_whitespace[i : i + 3])
+        for i in range(len(text) - 2):
+            trigrams.append(text[i : i + 3])
         
         tokenized_texts.append(trigrams)
     

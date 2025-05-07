@@ -12,18 +12,15 @@ dataset = load_dataset(
 def char_bigrams_tokenize(examples):
     """
     Converts each text in examples["text"] into a list of overlapping
-    2-character tokens, ignoring all whitespace.
-    For "apple" -> ["ap", "pp", "pl", "le"].
+    2-character tokens, including whitespace.
+    For "a pple" -> ["a ", " p", "pp", "pl", "le"].
     """
     tokenized_texts = []
     for text in examples["text"]:
-        # Remove whitespace
-        text_no_whitespace = "".join(text.split())
-        
-        # Build bigrams in a sliding window
+        # Keep whitespace
         bigrams = []
-        for i in range(len(text_no_whitespace) - 1):
-            bigrams.append(text_no_whitespace[i : i + 2])
+        for i in range(len(text) - 1):
+            bigrams.append(text[i : i + 2])
         
         tokenized_texts.append(bigrams)
     

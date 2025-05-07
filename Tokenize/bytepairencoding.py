@@ -4,8 +4,8 @@ import os
 
 lang = "ZTurkish"
 vocabsize = 5
-input_path = rf"C:\Users\jinfa\OneDrive\Desktop\Research Dr. Mani\{lang}10k"
-output_path = rf"C:\Users\jinfa\OneDrive\Desktop\Research Dr. Mani\{lang} Tokenized\BPE{vocabsize}k"
+input_path = rf"C:\Users\jinfa\Desktop\Research Dr. Mani\{lang}10k"
+output_path = rf"C:\Users\jinfa\Desktop\Research Dr. Mani\{lang} Tokenized\SUBWORDCORRECTEDBPE{vocabsize}k"
 
 # Ensure output directory exists
 os.makedirs(output_path, exist_ok=True)
@@ -37,7 +37,7 @@ def bpe_tokenize(examples):
     """
     Tokenizes each text in examples["text"] using the BPE tokenizer.
     """
-    tokenized_texts = tokenizer.encode(examples["text"], output_type=yttm.OutputType.ID)
+    tokenized_texts = tokenizer.encode(examples["text"], output_type=yttm.OutputType.SUBWORD)
     return {"tokens": tokenized_texts}
 
 # Apply the tokenizer to the dataset

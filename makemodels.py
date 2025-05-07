@@ -3,9 +3,9 @@ from gensim.models import Word2Vec
 import os
 
 langs = ["ZTurkish"]
-strategies = ["Word"]
+strategies = ["SUBWORDCORRECTEDBPE5k"]
 
-output_path = rf"C:\Users\jinfa\OneDrive\Desktop\Research Dr. Mani\ZTurkish Word2Vec"
+output_path = rf"C:\Users\jinfa\Desktop\Research Dr. Mani\ZTurkish Word2Vec"
 
 def make_model(lang, strategy):
     dataset = load_from_disk(rf"C:\Users\jinfa\OneDrive\Desktop\Research Dr. Mani\{lang} Tokenized\{strategy}")

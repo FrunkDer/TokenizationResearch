@@ -12,17 +12,17 @@ dataset = load_dataset(
 def char_tokenize(examples):
     """
     Converts each text in examples["text"] into a list of individual 
-    characters, removing all whitespace characters.
+    characters, including all whitespace characters.
+    For "a b\nc" -> ["a", " ", "b", "\n", "c"]
     """
     tokenized_texts = []
     for text in examples["text"]:
-        # Remove all whitespace (spaces, tabs, newlines) by splitting and rejoining
-        text_no_whitespace = "".join(text.split())
-        # Convert the remaining string into a list of individual chars
-        tokens = list(text_no_whitespace)
+        # Keep all characters, including whitespace
+        tokens = list(text)
         tokenized_texts.append(tokens)
     
     return {"tokens": tokenized_texts}
+
 
 tokenized_dataset = dataset.map(char_tokenize, batched=True)
 
