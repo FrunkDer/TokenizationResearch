@@ -2,8 +2,8 @@ import youtokentome as yttm
 from datasets import load_dataset
 import os
 
-langs = ["ZTurkish"]
-vocabsizes = [10, 25, 50]
+langs = ["ZFinnish"]
+vocabsizes = [5, 10, 25, 50]
 def do_it(lang, vocabsize):
     input_path = rf"C:\Users\jinfa\Desktop\Research Dr. Mani\{lang}10k"
     output_path = rf"C:\Users\jinfa\Desktop\Research Dr. Mani\{lang} Tokenized\SUBWORDCORRECTEDBPE{vocabsize}k"

@@ -5,7 +5,7 @@ lang = "ZTurkish"
 dataset = load_dataset(
     "text", 
     data_files={
-        "train": rf"C:\Users\jinfa\OneDrive\Desktop\Research Dr. Mani\{lang}10k\article_*.txt"
+        "train": rf"C:\Users\jinfa\Desktop\Research Dr. Mani\{lang}10k\article_*.txt"
     }
 )
 
@@ -29,6 +29,6 @@ def char_bigrams_tokenize(examples):
 tokenized_dataset = dataset.map(char_bigrams_tokenize, batched=True)
 
 # Choose a save path that includes the "Finnish Tokenized" subfolder
-save_path = rf"C:\Users\jinfa\OneDrive\Desktop\Research Dr. Mani\{lang} Tokenized\Bigrams"
+save_path = rf"C:\Users\jinfa\Desktop\Research Dr. Mani\{lang} Tokenized\Bigrams"
 
 tokenized_dataset.save_to_disk(save_path)
