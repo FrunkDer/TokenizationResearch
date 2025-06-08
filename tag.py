@@ -8,14 +8,18 @@ from gensim.models import Word2Vec
 import time
 
 # Paths
-lang = "ZTurkish"  # Choose language
+lang = "ZFinnish"  # Choose language
 #WHEN DOING FINNISH ADD WORD TO THE LIST
-strategies = ["Word", "Trigrams", "Bigrams", "Char", "BPE10k", "BPE25k", "BPE50k", "BPE5k"]  #PUT WORD BACK IN 
+strategies = ["SUBWORDCORRECTEDBPE10k", "SUBWORDCORRECTEDBPE25k", "SUBWORDCORRECTEDBPE50k", "SUBWORDCORRECTEDBPE5k"]  #PUT WORD BACK IN 
 for strategy in strategies:
-    model_path = r"C:\Users\jinfa\OneDrive\Desktop\Research Dr. Mani\ZTurkish Word2Vec"
-    train_file = fr"C:\Users\jinfa\OneDrive\Desktop\Research Dr. Mani\Evaluation\Turkishtrain.conll"
-    test_file = fr"C:\Users\jinfa\OneDrive\Desktop\Research Dr. Mani\Evaluation\Turkishtest.conll"
-    output_stats_path = fr"C:\Users\jinfa\OneDrive\Desktop\Research Dr. Mani\ZTurkish Evaluation\{lang}_{strategy}_POS_results.json"
+    model_path = fr"C:\Users\jinfa\Desktop\Research Dr. Mani\{lang} Word2Vec"
+    if lang == "ZFinnish" or lang == "Finnish":
+        train_file = fr"C:\Users\jinfa\Desktop\Research Dr. Mani\Evaluation\Finnishtrain.conll"
+        test_file = fr"C:\Users\jinfa\Desktop\Research Dr. Mani\Evaluation\Finnishtest.conll"
+    else:
+        train_file = fr"C:\Users\jinfa\Desktop\Research Dr. Mani\Evaluation\Turkishtrain.conll"
+        test_file = fr"C:\Users\jinfa\Desktop\Research Dr. Mani\Evaluation\Turkishtest.conll"
+    output_stats_path = fr"C:\Users\jinfa\Desktop\Research Dr. Mani\{lang} Evaluation\{lang}_{strategy}_POS_results.json"
 
     # Load Word2Vec model
     def load_word2vec():

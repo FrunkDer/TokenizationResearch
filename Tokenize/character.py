@@ -1,6 +1,6 @@
 from datasets import load_dataset
 
-lang = "ZTurkish"
+lang = "ZFinnish"
 # Load your .txt files
 dataset = load_dataset(
     "text", 
