@@ -40,9 +40,18 @@ def plot_f1_scores(data, lang, strat, save_dir):
 # Function to plot and save precision vs recall scatter plot
 def plot_precision_vs_recall(data, lang, strat, save_dir):
     classification_report = data["classification_report"]
-    labels = [label for label in classification_report.keys() if label not in ["accuracy", "macro avg", "weighted avg"]]
-    precision = [classification_report[label]["precision"] for label in labels]
-    recall = [classification_report[label]["recall"] for label in labels]
+
+    # Only include labels that are not summary averages and that have non-zero precision or recall
+    labels = []
+    precision = []
+    recall = []
+    for label, scores in classification_report.items():
+        if label in ["accuracy", "macro avg", "weighted avg"]:
+            continue
+        if scores["precision"] > 0 or scores["recall"] > 0:
+            labels.append(label)
+            precision.append(scores["precision"])
+            recall.append(scores["recall"])
 
     fig, ax = plt.subplots(figsize=(6, 6))
     ax.scatter(precision, recall, color='red', s=100, alpha=0.7)
@@ -50,8 +59,10 @@ def plot_precision_vs_recall(data, lang, strat, save_dir):
     texts = []
     for i, label in enumerate(labels):
         texts.append(ax.text(precision[i], recall[i], label, fontsize=9))
+    ax.scatter(0, 0, color="black", s=100, alpha=0.7)
+    ax.text(0.02, 0.02, "Failed Classes", fontsize=9)
 
-    adjust_text(texts, arrowprops=dict(arrowstyle="->", color='gray', lw=0.5))  # Auto adjust
+    adjust_text(texts, arrowprops=dict(arrowstyle="->", color='gray', lw=0.5))
 
     ax.set_xlabel("Precision")
     ax.set_ylabel("Recall")
@@ -78,17 +89,16 @@ def plot_confusion_matrix(data, lang, strat, save_dir):
 # Define base output directory
 
 # Define languages and tokenization strategies
-#languages = ["ZTurkish", "ZFinnish"]
+languages = ["Turkish", "Finnish"]
 #strategies = ["Bigrams", "SUBWORDCORRECTEDBPE5k", "SUBWORDCORRECTEDBPE10k", "SUBWORDCORRECTEDBPE25k", "SUBWORDCORRECTEDBPE50k", "Char", "Trigrams", "Word"]
 
-languages = []
-strategies = []
+# languages = []
+strategies = ["Bigrams", "BPE5k", "BPE10k", "BPE25k", "BPEP50k", "Char", "Trigrams", "Word"]
 # Loop through language and strategy combinations
 for lang in languages:
     for strategy in strategies:
         output_directory = rf"C:\Users\jinfa\Desktop\Research Dr. Mani\{lang} Evaluation\Plots"  # Change this to your desired output folder
-        file_path = os.path.join(f"{lang} Evaluation", f"{lang}_{strategy}_POS_results.json")  # Path to input JSON file
-        
+        file_path = fr"C:\Users\jinfa\Desktop\Research Dr. Mani\{lang} Evaluation\{lang}_{strategy}_POS_results.json"  # Path to input JSON file
         data = load_classification_data(file_path)
         if data:  # Only process if file exists and is loaded
             save_dir = os.path.join(output_directory, lang, strategy)  # Define where to save plots
